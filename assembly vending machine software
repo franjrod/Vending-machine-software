@@ -1,0 +1,434 @@
+include emu8086.inc  
+
+ GOTOXY 15,30
+PRINT 184
+PRINT 'FranciscoCOMP'
+
+GOTOXY 1,1
+PRINT '******************************************************'                   ;
+GOTOXY 1,12                                                                      ;structure of the screen and the products that the machine will have
+PRINT '******************************************************'                   ;
+GOTOXY 1,2
+PRINT '*'
+GOTOXY 1,3
+PRINT '*' 
+GOTOXY 1,4
+PRINT '*' 
+GOTOXY 1,5
+PRINT '*' 
+GOTOXY 1,6
+PRINT '*' 
+GOTOXY 1,7
+PRINT '*' 
+GOTOXY 1,8
+PRINT '*' 
+GOTOXY 1,9
+PRINT '*' 
+GOTOXY 1,10
+PRINT '*'  
+GOTOXY 1,11
+PRINT '*'  
+GOTOXY 1,12
+PRINT '*'  
+GOTOXY 1,13
+
+
+GOTOXY 54,2
+PRINT '*'
+GOTOXY 54,3
+PRINT '*' 
+GOTOXY 54,4
+PRINT '*' 
+GOTOXY 54,5
+PRINT '*' 
+GOTOXY 54,6
+PRINT '*' 
+GOTOXY 54,7
+PRINT '*' 
+GOTOXY 54,8
+PRINT '*' 
+GOTOXY 54,9
+PRINT '*' 
+GOTOXY 54,10
+PRINT '*'  
+GOTOXY 54,11
+PRINT '*'  
+GOTOXY 54,12
+PRINT '*'  
+
+GOTOXY 2, 2
+PRINT 'A-AGUA(50cent)'
+GOTOXY 2, 4
+PRINT 'B-COCA COLA(150cent)' 
+GOTOXY 2,6
+PRINT 'C-ICE TEA(150cent)'
+GOTOXY 2,8 
+PRINT 'D-SUMOL(150cent)'
+GOTOXY 2,10          
+PRINT 'E-SUMO NATURAL(120cent)'
+
+GOTOXY 30,2
+PRINT 'F-TWIX(100cent)'
+GOTOXY 30,4 
+PRINT 'G-KITKAT(100cent)'
+GOTOXY 30,6
+PRINT 'H-MARS(100cent)'
+GOTOXY 30,8
+PRINT 'I-BOLOS VARIADOS(80cent)'
+GOTOXY 30,10                  
+PRINT 'J-FRUTA VARIADA(60cent)'
+
+
+
+            
+GOTOXY 1,13
+PRINT   201
+GOTOXY 2,13
+PRINT '����������������������������������������������������'
+GOTOXY 54,13
+PRINT  187 
+GOTOXY 1,14
+PRINT 186
+GOTOXY 1,15
+PRINT 186
+GOTOXY 1,16
+PRINT 186
+GOTOXY 1,17
+PRINT 186
+GOTOXY 1,18
+PRINT 186
+GOTOXY 1,19
+PRINT 186 
+GOTOXY 1,20
+PRINT 186 
+GOTOXY 1,21
+PRINT 186 
+GOTOXY 1,22
+PRINT 186
+ 
+GOTOXY 54,14
+PRINT 186
+GOTOXY 54,15
+PRINT 186
+GOTOXY 54,16
+PRINT 186
+GOTOXY 54,17
+PRINT 186
+GOTOXY 54,18
+PRINT 186
+GOTOXY 54,19
+PRINT 186 
+GOTOXY 54,20
+PRINT 186 
+GOTOXY 54,21
+PRINT 186 
+GOTOXY 54,22
+PRINT 186
+
+GOTOXY 1,23
+PRINT 200
+GOTOXY 2,23
+PRINT '����������������������������������������������������'
+GOTOXY 54,23
+PRINT 188
+
+
+
+
+
+INICIO:
+GOTOXY 5,15
+PRINT 'SELECIONE O SEU PRODUTO-'                                     ;asks for a letter and saves it to be compared
+                                                                     ; with the following options and if found do a jmp
+ MOV AH ,1                                                           ;for the selected product and if it doesn't, ask for another letter
+INT 21H 
+MOV BL,AL
+
+ 
+  
+CMP BL,'A'
+JE AGUA
+
+CMP BL,'B'
+JE COCACOLA
+
+CMP BL,'C'
+JE  ICE
+
+CMP BL,'D'
+JE  SUMOL 
+
+CMP BL,'E'
+JE  SUMO_NAT
+
+CMP BL,'F'
+JE  TWIX
+
+CMP BL,'G'
+JE  KITKAT
+
+CMP BL,'H'
+JE  MARS
+
+CMP BL,'I'
+JE BOLOS
+
+CMP BL,'J'
+JE FRUTA
+
+GOTOXY 5,15
+PRINT '                                '
+JMP INICIO
+
+
+AGUA:
+
+GOTOXY 5,17
+ PRINT 'ESCOLHEU A AGUA TEM A CERTEZA ?(S)OU(N)' 
+ MOV AH ,1                                                            ;here will confirm the product you have chosen
+INT 21H                                                               ;and if desired, its value will be saved in Dx
+MOV BL,AL                                                             ;and will make the jmp for purchase and if this is not the product
+CMP BL,'S'                                                            ;intended does a jmp to clean
+MOV DX,50
+JE COMPRA
+JMP LIMPAR
+
+
+COCACOLA:
+
+GOTOXY 5,17
+ PRINT 'ESCOLHEU A COCA_COLA TEM A CERTEZA ?(S)OU(N)'
+ MOV AH ,1
+ INT 21H 
+ MOV BL,AL  
+ CMP BL,'S'
+ MOV DX,150
+ JE COMPRA 
+ JMP LIMPAR
+ 
+ 
+ ICE:
+  GOTOXY 5,17
+  PRINT 'ESCOLHEU O ICE TEA TEM A CERTEZA ?(S)OU(N)'
+ MOV AH ,1
+ INT 21H 
+ MOV BL,AL  
+ CMP BL,'S'
+ MOV DX,150
+ JE COMPRA 
+ JMP LIMPAR
+ 
+ 
+ SUMOL:
+ GOTOXY 5,17
+ PRINT 'ESCOLHEU O SUMOL TEM A CERTEZA ?(S)OU(N)'
+ MOV AH ,1
+ INT 21H 
+ MOV BL,AL  
+ CMP BL,'S'
+ MOV DX,150
+ JE COMPRA 
+ JMP LIMPAR
+ 
+ 
+ SUMO_NAT:
+ 
+ GOTOXY 5,17
+ PRINT 'ESCOLHEU O SUMO NATURAL TEM A CERTEZA ?(S)OU(N)' 
+ MOV AH ,1
+INT 21H 
+MOV BL,AL  
+CMP BL,'S'
+MOV DX,120
+JE COMPRA
+JMP LIMPAR
+ 
+ 
+ TWIX:
+ 
+  GOTOXY 5,17
+ PRINT 'ESCOLHEU O TWIX TEM A CERTEZA ?(S)OU(N)' 
+ MOV AH ,1
+INT 21H 
+MOV BL,AL  
+CMP BL,'S'
+MOV DX,100
+JE COMPRA
+JMP LIMPAR 
+
+
+
+ KITKAT:
+ 
+  GOTOXY 5,17
+ PRINT 'ESCOLHEU O KITKAT TEM A CERTEZA ?(S)OU(N)' 
+ MOV AH ,1
+INT 21H 
+MOV BL,AL  
+CMP BL,'S'
+MOV DX,100
+JE COMPRA
+JMP LIMPAR
+ 
+ MARS:
+ 
+ GOTOXY 5,17
+ PRINT 'ESCOLHEU O KITKAT TEM A CERTEZA ?(S)OU(N)' 
+ MOV AH ,1
+INT 21H 
+MOV BL,AL  
+CMP BL,'S'
+MOV DX,100
+JE COMPRA
+JMP LIMPAR
+ 
+ 
+BOLOS: 
+ GOTOXY 5,17
+ PRINT 'ESCOLHEU O BOLO TEM A CERTEZA ?(S)OU(N)' 
+ MOV AH ,1
+INT 21H 
+MOV BL,AL  
+CMP BL,'S'
+MOV DX,80
+JE COMPRA
+JMP LIMPAR
+
+
+   
+ FRUTA:
+  
+  
+ 
+
+  GOTOXY 5,17
+ PRINT 'ESCOLHEU FRUTA TEM A CERTEZA ?(S)OU(N)' 
+ MOV AH ,1
+INT 21H 
+MOV BL,AL  
+CMP BL,'S'
+MOV DX,60
+JE COMPRA
+JMP LIMPAR
+
+ 
+
+
+
+
+
+
+ COMPRA:  
+GOTOXY 5,15
+ PRINT '                                               '
+ GOTOXY 5,17                                                      ;in this code function will ask for the money you want to enter 
+ PRINT '                                                '         ;and then compare the value stored in DX and the value entered  
+                                                                  ;if it is insufficient, it makes a JL for accounts and in the case of
+                                                                  ;be equal or greater jumps to the DAR_TROCO function
+GOTOXY 5,15
+ PRINT 'PRODUTO SELECIONADO'
+
+GOTOXY 5,17
+ PRINT 'INSIRA DINHEIRO-'
+ 
+  
+      
+CALL   scan_num 
+      
+ MOV AX,CX
+ 
+ 
+ MOV BX,AX
+ MOV AX,DX
+ CMP BX,AX
+ 
+ JL CONTAS
+  
+ JMP DAR_TROCO
+ 
+   
+ 
+ 
+ 
+ 
+ CONTAS:
+ 
+  GOTOXY 2,17
+  PRINT 'DINHEIRO INSUFICIENTE,INSIRA MAIS DINHEIRO-' 
+ 
+
+                                                                 ;will compare the value inserted to the price value
+CALL   scan_num                                                   ;and if it is inferior, repeat this function until is enough
+ MOV AX,CX
+MOV AX,AX
+
+ADD AX,BX
+
+MOV BX,AX
+ 
+CMP AX,DX
+
+
+  JL CONTAS
+  JE DAR_TROCO
+ JG DAR_TROCO
+ JMP LIMPAR 
+
+GOTOXY 2,17
+PRINT '                                                     '
+  
+
+ 
+ 
+                                                                   ;in this function the money entered will be subtracted by the value. 
+DAR_TROCO:                                                         ;saved in dx of each product and the result will be the change given
+                                                                   ;to the client
+MOV AX,BX
+MOV BX,DX
+SUB AX,BX
+
+GOTOXY 5,19 
+PRINT 'O TROCO - ' 
+CALL   print_num 
+PRINT  'cent'
+GOTOXY 5,21
+PRINT 'RETIRE O SEU PRODUTO'
+
+GOTOXY 5,22
+ PRINT 'OBRIGADO'
+JMP LIMPAR 
+ 
+
+ 
+  
+
+ 
+  
+ 
+ 
+ 
+  
+ limpar:                                                             ;the clean function serves to clear the screen when an error occurs
+ GOTOXY 2,15                                                         ;then call the
+ PRINT '                                                  '          ;start function that will restart the cycle
+ GOTOXY 2,17
+ PRINT '                                                  '
+ GOTOXY 2,19
+ PRINT '                                                  '
+ GOTOXY 2,21
+ PRINT '                                                  '
+ GOTOXY 2,22
+ PRINT '                                                  ' 
+ jmp inicio        
+ 
+ 
+ 
+ 
+ 
+ DEFINE_SCAN_NUM
+DEFINE_PRINT_STRING
+DEFINE_PRINT_NUM
+DEFINE_PRINT_NUM_UNS
+ 
+ 
+ END
